@@ -1,15 +1,16 @@
-val fibi = sequence {
-    var a = firstElement
-    yield(a)
-    var b = secondElement
-    yield(b)
-    while (true) {
-        val c = a + b
-        yield(c)
-        a = b
-        b = c
+public val fibi: Sequence<Int> =
+    sequence {
+        var a = firstElement
+        yield(a)
+        var b = secondElement
+        yield(b)
+        while (true) {
+            val c = a + b
+            yield(c)
+            a = b
+            b = c
+        }
     }
-}
 
-expect val firstElement: Int
-expect val secondElement: Int
+public expect val firstElement: Int
+public expect val secondElement: Int

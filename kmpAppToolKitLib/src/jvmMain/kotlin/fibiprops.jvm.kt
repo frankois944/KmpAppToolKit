@@ -1,2 +1,2 @@
-actual val firstElement: Int = 2
-actual val secondElement: Int = 3
+public actual val firstElement: Int = 2
+public actual val secondElement: Int = 3

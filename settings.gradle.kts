@@ -1,3 +1,6 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+rootProject.name = "KmpAppToolKit"
+
 pluginManagement {
     includeBuild("convention-plugins")
     repositories {
@@ -14,5 +17,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "multiplatform-library-template"
 include(":kmpAppToolKitLib")
+include(":sample:composeApp")

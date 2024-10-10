@@ -8,6 +8,8 @@ plugins {
 }
 
 kotlin {
+    explicitApi()
+
     jvm()
     androidTarget {
         publishLibraryVariants("release")
@@ -20,11 +22,14 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
     linuxX64()
+    wasmJs {
+        browser()
+        nodejs()
+    }
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                //put your multiplatform dependencies here
             }
         }
         val commonTest by getting {
@@ -37,8 +42,14 @@ kotlin {
 
 android {
     namespace = "fr.francoisdabonot.kmpAppToolKit"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.android.compileSdk
+            .get()
+            .toInt()
     defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk =
+            libs.versions.android.minSdk
+                .get()
+                .toInt()
     }
 }
