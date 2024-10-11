@@ -1,9 +1,12 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
     id("module.publication")
 }
 
@@ -21,21 +24,31 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    linuxX64()
+    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
         nodejs()
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-            }
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation("co.touchlab:kermit:2.0.4")
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.kotlin.test)
-            }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
+        jvmMain.dependencies {
+            api(fileTree("${projectDir.path}/libs/") { include("*.jar") })
+            implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.camera.desktop)
+            implementation(libs.webcam.capture.driver.native)
+            implementation(compose.desktop.currentOs)
+            implementation(compose.ui)
+        }
+        wasmJsMain.dependencies {
+            implementation(compose.ui)
         }
     }
 }
